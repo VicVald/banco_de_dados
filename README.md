@@ -1,6 +1,8 @@
 # Sistema de Gestão de Projetos (MVC)
 
-Este é um sistema de gestão de projetos e tarefas desenvolvido com Python, FastAPI e SQLAlchemy, seguindo a arquitetura MVC (Model-View-Controller).
+Este é um sistema de gestão de projetos e tarefas desenvolvido com Python, FastAPI e SQLAlchemy, seguindo a arquitetura MVC (Model-View-Controller). 
+
+**OBS - Vibe Coded**
 
 ## Estrutura do Projeto
 

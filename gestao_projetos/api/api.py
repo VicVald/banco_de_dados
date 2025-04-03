@@ -3,6 +3,10 @@ Configuração principal da API
 """
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
+import os
 from gestao_projetos.core.exceptions import GestaoProjetosException
 from gestao_projetos.api import users, projects, tasks
 
@@ -12,6 +16,15 @@ app = FastAPI(
     title="Gestão de Projetos API",
     description="API para gerenciamento de projetos e tarefas",
     version="1.0.0",
+)
+
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas as origens em ambiente de desenvolvimento
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos
+    allow_headers=["*"],  # Permite todos os headers
 )
 
 # Incluir rotas de cada módulo
@@ -47,10 +60,23 @@ async def gestao_projetos_exception_handler(request: Request, exc: GestaoProjeto
     )
 
 
+# Montar arquivos estáticos
+static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+
 @app.get("/")
 async def root():
     """
-    Rota raiz da API.
+    Rota raiz da API - Retorna a interface gráfica.
+    """
+    return FileResponse(os.path.join(static_dir, 'index.html'))
+
+
+@app.get("/api")
+async def api_info():
+    """
+    Informações sobre a API.
     
     Retorna uma mensagem de boas-vindas.
     """
