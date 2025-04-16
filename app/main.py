@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Annotated, Optional
-from .models import *
+from .models.userModels import *
 from .database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import joinedload
